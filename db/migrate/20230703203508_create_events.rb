@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.string :guests
       t.string :location
       t.timestamp :duedate
-      t.string :type
+      t.string :tag
 
       t.timestamps
     end

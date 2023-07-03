@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_203809) do
     t.string "guests"
     t.string "location"
     t.datetime "duedate", precision: nil
-    t.string "type"
+    t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "calendar_id"

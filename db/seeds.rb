@@ -11,3 +11,5 @@ p Calendar.create(tag: "Side Projects")
 p Calendar.create(tag: "Family Time")
 p Calendar.create(tag: "Errands")
 p Calendar.create(tag: "Test")
+
+p Event.create(title: "event1", description: "hello", location:"my house", tag:"appointment", calendar_id:1, duedate: Time.now+1.day)

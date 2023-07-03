@@ -1,4 +1,4 @@
-class CalendarsController < ApplicationController
+class Api::V1::CalendarsController < ApplicationController
   before_action :set_calendar, only: %i[ show update destroy ]
 
   # GET /calendars
