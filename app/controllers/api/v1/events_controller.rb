@@ -18,7 +18,7 @@ class Api::V1::EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      render json: @event, status: :created, location: @event
+      render json: @event, status: :created, location: api_v1_calendar_url(@event)
     else
       render json: @event.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class Api::V1::EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:title, :description, :guests, :location, :dueDate)
+      params.require(:event).permit(:title, :description, :guests, :location, :duedate, :calendar_id)
     end
 end

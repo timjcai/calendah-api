@@ -18,7 +18,7 @@ class Api::V1::CalendarsController < ApplicationController
     @calendar = Calendar.new(calendar_params)
 
     if @calendar.save
-      render json: @calendar, status: :created, location: @calendar
+      render json: @calendar, status: :created, location: api_v1_calendar_url(@calendar)
     else
       render json: @calendar.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class Api::V1::CalendarsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_params
-      params.require(:calendar).permit(:tag, :string)
+      params.require(:calendar).permit(:tag)
     end
 end
