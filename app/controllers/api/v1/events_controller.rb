@@ -1,5 +1,7 @@
 class Api::V1::EventsController < ApplicationController
   before_action :set_event, only: %i[ show update destroy ]
+  before_action :set_start_date, only: %i[ date_range ]
+  before_action :set_end_date, only: %i[ date_range ]
 
   # GET /events
   def index
@@ -11,6 +13,12 @@ class Api::V1::EventsController < ApplicationController
   # GET /events/1
   def show
     render json: @event
+  end
+
+  def date_range
+    @events = Event.where(duedate: [@start_date..@end_date])
+
+    render json: @events
   end
 
   # POST /events
@@ -42,6 +50,22 @@ class Api::V1::EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+    end
+
+    def set_start_date
+      start_date_array = params[:start_date].split('-')
+      year = start_date_array[0].to_i
+      month = start_date_array[1].to_i
+      day = start_date_array[2].to_i
+      @start_date = DateTime.new(year,month,day)
+    end
+
+    def set_end_date
+      p end_date_array = params[:end_date].split('-')
+      p year = end_date_array[0].to_i
+      p month = end_date_array[1].to_i
+      p day = end_date_array[2].to_i
+      @end_date = DateTime.new(year,month,day)
     end
 
     # Only allow a list of trusted parameters through.
