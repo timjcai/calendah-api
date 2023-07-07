@@ -16,9 +16,24 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def date_range
+    dates = (@start_date.to_date..@end_date.to_date).to_a
     @events = Event.where(duedate: [@start_date..@end_date])
+    sorted_events = {}
+    # create dates object/hash
+    dates.each do |date| 
+      sorted_events[date] = []
+    end
 
-    render json: @events
+    # parse dates and sort them into nested arrays within an object - based on dates
+    @events.each do |event|
+      date = event.duedate.to_date
+      if (sorted_events[date])
+        sorted_events[date].push(event)
+      end
+    end
+
+    # render json: @events
+    render json: sorted_events
   end
 
   # POST /events
@@ -61,10 +76,10 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def set_end_date
-      p end_date_array = params[:end_date].split('-')
-      p year = end_date_array[0].to_i
-      p month = end_date_array[1].to_i
-      p day = end_date_array[2].to_i
+      end_date_array = params[:end_date].split('-')
+      year = end_date_array[0].to_i
+      month = end_date_array[1].to_i
+      day = end_date_array[2].to_i
       @end_date = DateTime.new(year,month,day)
     end
 
