@@ -17,7 +17,7 @@ class Api::V1::EventsController < ApplicationController
 
   def date_range
     dates = (@start_date.to_date..@end_date.to_date).to_a
-    @events = Event.where(duedate: [@start_date..@end_date])
+    @events = Event.where(starttime: [@start_date..@end_date])
     sorted_events = {}
     # create dates object/hash
     dates.each do |date| 
@@ -26,7 +26,7 @@ class Api::V1::EventsController < ApplicationController
 
     # parse dates and sort them into nested arrays within an object - based on dates
     @events.each do |event|
-      date = event.duedate.to_date
+      date = event.starttime.to_date
       if (sorted_events[date])
         sorted_events[date].push(event)
       end
@@ -68,7 +68,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def set_start_date
-      start_date_array = params[:start_date].split('-')
+      p start_date_array = params[:start_date].split('-')
       year = start_date_array[0].to_i
       month = start_date_array[1].to_i
       day = start_date_array[2].to_i
@@ -76,7 +76,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def set_end_date
-      end_date_array = params[:end_date].split('-')
+      p end_date_array = params[:end_date].split('-')
       year = end_date_array[0].to_i
       month = end_date_array[1].to_i
       day = end_date_array[2].to_i
@@ -85,6 +85,6 @@ class Api::V1::EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:title, :description, :guests, :location, :duedate, :calendar_id)
+      params.require(:event).permit(:title, :description, :guests, :location, :starttime, :endtime, :calendar_id)
     end
 end

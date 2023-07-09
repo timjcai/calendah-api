@@ -25,7 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_203809) do
     t.text "description"
     t.string "guests"
     t.string "location"
-    t.datetime "duedate", precision: nil
+    t.datetime "starttime"
+    t.datetime "endtime"
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

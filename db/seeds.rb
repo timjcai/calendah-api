@@ -6,10 +6,18 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+require "faker"
+
 p Calendar.create(tag: "Work")
 p Calendar.create(tag: "Side Projects")
-p Calendar.create(tag: "Family Time")
-p Calendar.create(tag: "Errands")
-p Calendar.create(tag: "Test")
 
-p Event.create(title: "event1", description: "hello", location:"my house", tag:"appointment", calendar_id:1, duedate: Time.now+1.day)
+def create_event
+    number = rand(0..5)
+    start_time = Time.now+number.day+number.hour
+    end_time = start_time+1.hour
+    p Event.create(title: "#{Faker::Company.name}#{Faker::Company.suffix}", description: Faker::Company.bs , location: Faker::Address.full_address, tag:"appointment", calendar_id:1, starttime: start_time, endtime: end_time)
+end
+
+12.times do
+    create_event
+end
