@@ -1,4 +1,7 @@
-Rails.application.routes.draw do
+Rails.application.routes.draw do   
+  get 'pages/home'
+  get 'pages/restricted'
+  devise_for :users
   namespace :api do 
     namespace :v1 do 
       resources :calendars do
